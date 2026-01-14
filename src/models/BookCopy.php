@@ -20,7 +20,6 @@ class BookCopy
         $this->status = $status;
     }
 
-    // Getters
     public function getId(): int {
         return $this->id;
     }
@@ -41,20 +40,15 @@ class BookCopy
         return $this->status === 'available';
     }
 
-    public function borrow() : bool {
-        if ($this->isAvailable()) {
-            $this->status = 'checked_out';
-            return true; 
-        }
-        return false;
+    public function setStatus($status) {
+        $this->status = $status;
+    } 
+
+    public function canBorrow() : bool {
+        return ($this->isAvailable());
     }
 
-
-    public function reserve() : bool {
-        if ($this->status === 'checked_out') {
-            $this->status = 'reserved';
-            return true;
-        }
-        return false;
+    public function canbeReserved() : bool {
+        return ($this->status === 'checked_out');
     }
 }
