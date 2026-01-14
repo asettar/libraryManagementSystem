@@ -1,0 +1,108 @@
+1-book  {
+    ISBN unique 
+    title
+    publishedYear
+    availableCopies
+    status(availblabe, checkout out, reserved, underMaintenance)
+
+    can have multiple authors
+    books belongs to categories
+    can be availables at differenct livrary branches with different copies  
+
+    viewBookDetails();  // including author infor
+}
+
+2-Author {
+    name, bio
+    nationality
+    birthdate 
+    deathdate
+    genre (fiction, fantasy, sport, drama, history ....)
+
+    can write multiple books 
+}
+
+3-Member (student & faculty) {
+    id 
+    fullname, 
+    email 
+    phone number
+    total borrowedBooks(history)
+    
+    // differs (student or faculty )
+    membershipEndDate   // to track last membership date       
+    borrowLimit  // 
+    Late fee 
+    Loan period 
+
+    // membership can be renewed
+
+    view borrowHistory
+    renewMembership
+}
+
+studentMember {
+    isGraduated
+    borrowLimit = 3, simatanously 
+    loanPeriod = 14
+    LateFee = 0.5 per day
+    memrship valid for 1 year 
+}
+
+
+facultyMember {
+    role 
+    borrowLimit = 10, simatanously 
+    loanPeriod = 30
+    LateFee = 0.25 per day
+    memrship valid for 3 years 
+}
+
+
+4- Borrowing System {
+    in a borrow request : borrow(book, branch)
+        -system should check current borrowed against borrowLimit (when a member want to borrow a new book) 
+        -membership validity
+        -book availabilty at requested branch 
+        -cannot boorw if have overdue books or uunpaid fees excceding(10$) 
+    borrow transaction : crretae a record with 
+        borrow date 
+        due date 
+        actual return date 
+        late fee if applicable 
+    
+    Books can be renewed once for the same duration, unless another member has reserved it 
+    borrow() : diplsay due date
+    return() : {
+        check if overdue
+        calculate latefees
+        update book availability
+    } 
+
+
+5- reserationSystem {
+    memerbers can reserve current chckoutout books 
+    automatic notif when a reserved book become available 
+    48 hour pickup window for reservedBooks
+}
+
+6- Reporing System {
+    overdue reports by book 
+    top10 most borrowedBook 
+}
+
+
+libaryBranch {
+    id,
+    location
+    operating hours
+    conatct info 
+    
+    each branch has its own inventory books
+
+    methods :
+        findBookByTitle
+        findBookByIsbn
+        searchBooksByauthors
+        searchBooksBycategory 
+}
