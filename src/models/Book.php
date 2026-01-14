@@ -1,41 +1,35 @@
 <?php
 
-namespace App\Entities;
-
+namespace src\models;
 use DateTime;
 
 class Book
 {
-    private int $id;
-    private string $title;
-    private string  $isbn;
-    private DateTime $publicationYear;
-    private string  $status; // "available", "checked_out", "reserved", "lost"
+    private string      $isbn;
+    private string      $title;
+    private DateTime    $publicationYear;
+    private string      $category;
 
-    public function __construct(string $isbn, string $title, DateTime $publicationYear, string $status) {
+    public function __construct(string $isbn, string $title, DateTime $publicationYear, string $category) {
         $this->isbn = $isbn;
         $this->title = $title;
         $this->publicationYear = $publicationYear;
-        $this->status = $status;
+        $this->category = $category;
     }
 
     public function getIsbn(): string {
-        return $this->status;
-    }
-
-    public function getStatus(): string {
-        return $this->status;
+        return $this->isbn;
     }
 
     public function getTitle(): string {
         return $this->title;
     }
 
-    public function isAvailable(): bool {
-        return $this->status === 'available';
-        }
-        
-    public function isReseverd() : bool {
-        return $this->status === 'reserved';
+    public function getPublicationYear(): DateTime {
+        return $this->publicationYear;
+    }
+
+    public function getCategory(): string {
+        return $this->category;
     }
 }
