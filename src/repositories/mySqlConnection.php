@@ -20,10 +20,10 @@ class mySqlConnection implements interfaces\databaseInterface {
             die("Connection failed: " . $e->getMessage());
         }
     }
-    public  function getConnection() {
+    
+    public  function    getConnection() : PDO {
         return $this->connection;
     }
 }
 
-    
 ?>

@@ -9,12 +9,16 @@ class Book
     private string      $title;
     private DateTime    $publicationYear;
     private string      $category;
+    private int         $branchId;
+    private string      $status;       // available, checked_out, reserved, lost
 
-    public function __construct(string $isbn, string $title, DateTime $publicationYear, string $category) {
+    public function __construct(string $isbn, string $title, DateTime $publicationYear, string $category, int $branchId, string $status) {
         $this->isbn = $isbn;
         $this->title = $title;
         $this->publicationYear = $publicationYear;
         $this->category = $category;
+        $this->branchId = $branchId;
+        $this->status = $status;
     }
 
     public function getIsbn(): string {
@@ -31,5 +35,29 @@ class Book
 
     public function getCategory(): string {
         return $this->category;
+    }
+    
+    public function getBranchId(): int {
+        return $this->branchId;
+    }
+
+    public function getStatus(): string {
+        return $this->status;
+    }
+
+    public function setStatus($status) {
+        $this->status = $status;
+    } 
+
+    public function isAvailable(): bool {
+        return $this->status === 'available';
+    }
+
+     public function canBeBorrowed() : bool {
+        return ($this->isAvailable());
+    }
+
+    public function canBeReserved() : bool {
+        return ($this->status === 'checked_out');
     }
 }
