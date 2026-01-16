@@ -7,12 +7,12 @@ class Book
 {
     private string      $isbn;
     private string      $title;
-    private DateTime    $publicationYear;
+    private string    $publicationYear;
     private string      $category;
     private int         $branchId;
     private string      $status;       // available, checked_out, reserved, lost
 
-    public function __construct(string $isbn, string $title, DateTime $publicationYear, string $category, int $branchId, string $status) {
+    public function __construct(string $isbn, string $title, string $publicationYear, string $category, int $branchId, string $status) {
         $this->isbn = $isbn;
         $this->title = $title;
         $this->publicationYear = $publicationYear;
@@ -29,7 +29,7 @@ class Book
         return $this->title;
     }
 
-    public function getPublicationYear(): DateTime {
+    public function getPublicationYear(): string {
         return $this->publicationYear;
     }
 
@@ -59,5 +59,9 @@ class Book
 
     public function canBeReserved() : bool {
         return ($this->status === 'checked_out');
+    }   
+
+    public function __toString() {
+        return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}" . PHP_EOL;
     }
 }

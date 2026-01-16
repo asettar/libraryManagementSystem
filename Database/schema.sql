@@ -1,7 +1,7 @@
 CREATE TABLE branches (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    location VARCHAR(150) NULL
+    location VARCHAR(150) NOT NULL
 );
 
 
@@ -12,7 +12,7 @@ CREATE TABLE books (
     category VARCHAR(100) NOT NULL,
     branch_id INT NOT NULL,
     status ENUM('available', 'checked_out', 'reserved', 'lost') 
-           NOT NULL DEFAULT 'available'
+           NOT NULL DEFAULT 'available',
 
     FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
