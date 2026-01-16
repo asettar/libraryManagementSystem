@@ -14,7 +14,12 @@ echo "database is succesfully connected" . PHP_EOL;
 $BookRepo = new BookRepository($db);
 
 // findBYISBN method:
+echo("===FindByISBN==========\n");
 $book = $BookRepo->findByISBN('9780132350884');
 echo($book);
 
+$books = $BookRepo->findByCategory('Programming');
+echo("===FindByCategory==========\n");
+foreach($books as $book)
+    echo $book;
 ?>

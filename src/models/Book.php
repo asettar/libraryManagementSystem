@@ -7,7 +7,7 @@ class Book
 {
     private string      $isbn;
     private string      $title;
-    private string    $publicationYear;
+    private string      $publicationYear;
     private string      $category;
     private int         $branchId;
     private string      $status;       // available, checked_out, reserved, lost
@@ -62,6 +62,6 @@ class Book
     }   
 
     public function __toString() {
-        return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}" . PHP_EOL;
+        return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}, Category: {$this->category}" . PHP_EOL;
     }
 }

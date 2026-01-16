@@ -12,6 +12,7 @@ INSERT INTO books (isbn, title, publication_year, category, branch_id, status) V
 ('9780201633610', 'Design Patterns', 1994, 'Software Engineering', 1, 'checked_out'),
 ('9780131103627', 'The C Programming Language', 1988, 'Programming', 2, 'reserved'),
 ('9780262033848', 'Introduction to Algorithms', 2009, 'Algorithms', 2, 'available'),
+('9780262033850', 'Introduction to Algorithms 2', 2010, 'Algorithms', 2, 'available'),
 ('9780134685991', 'Effective Java', 2018, 'Programming', 1, 'lost');
 
 
