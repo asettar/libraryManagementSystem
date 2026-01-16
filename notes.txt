@@ -59,30 +59,33 @@ facultyMember {
 }
 
 
-4- Borrowing System {
-    in a borrow request : borrow(book, branch)
+4- Borrowing System. {
+    in a borrow request : borrow(member, book, branch)
         -system should check current borrowed against borrowLimit (when a member want to borrow a new book) 
         -membership validity
         -book availabilty at requested branch 
-        -cannot boorw if have overdue books or uunpaid fees excceding(10$) 
-    borrow transaction : crretae a record with 
+        -cannot borrow if have overdue books or unpaid fees exceeding(10$)
+
+    borrow transaction : create a record with  
         borrow date 
         due date 
         actual return date 
         late fee if applicable 
-    
+
     Books can be renewed once for the same duration, unless another member has reserved it 
-    borrow() : diplsay due date
+    borrow() : disPsay due date
     return() : {
         check if overdue
         calculate latefees
         update book availability
     } 
 
-
+}
 5- reserationSystem {
-    memerbers can reserve current chckoutout books 
-    automatic notif when a reserved book become available 
+    memerbers can reserve current chekoutout books 
+        ->reserve(member, book)
+    automatic notif when a reserved book become available
+        mail(user);  // will be called on return book 
     48 hour pickup window for reservedBooks
 }
 

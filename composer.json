@@ -1,0 +1,15 @@
+{
+    "name": "safiy/library-sytem-management",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "asettar",
+            "email": "achrafsettar8@gmail.com"
+        }
+    ],
+    "require": {}
+}

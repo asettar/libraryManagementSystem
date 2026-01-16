@@ -1,8 +1,10 @@
 <?php 
 
-use interfaces\databaseInterface;
+namespace src\repositories;
+use src\interfaces\databaseInterface;
+use PDO;
 
-class mySqlConnection implements interfaces\databaseInterface {
+class mySqlConnection implements databaseInterface {
     private PDO $connection;
 
     private string $host = "localhost";
@@ -16,7 +18,7 @@ class mySqlConnection implements interfaces\databaseInterface {
             $dsn = "mysql:host={$this->host};dbname={$this->dbname};charset=utf8";
             $this->connection = new PDO($dsn, $this->username, $this->password);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $e) {
+        } catch (\PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
     }

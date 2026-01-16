@@ -1,6 +1,6 @@
 <?php 
 
-namespace interfaces; 
+namespace src\interfaces; 
 
 interface databaseInterface {
     public function getConnection();
