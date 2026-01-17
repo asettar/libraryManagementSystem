@@ -62,6 +62,6 @@ class Book
     }   
 
     public function __toString() {
-        return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}, Category: {$this->category}" . PHP_EOL;
+        return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}, branch_id : {$this->branchId}, Category: {$this->category}" . PHP_EOL;
     }
 }

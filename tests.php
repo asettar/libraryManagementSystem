@@ -17,14 +17,18 @@ $BookRepo = new BookRepository($db);
 echo("===FindByISBN==========\n");
 $book = $BookRepo->findByISBN('9780132350884');
 echo($book);
-$book = $BookRepo->findByTitle('Clean Code');
+$books = $BookRepo->findByTitle('Clean Code');
 echo("===FindByTitle==========\n");
-echo $book;
+foreach($books as $book)
+    echo $book;
 
 $books = $BookRepo->findByCategory('Programming');
 echo("===FindByCategory==========\n");
 foreach($books as $book)
     echo $book;
 
-
+$books = $BookRepo->findByAuthor(3);
+echo("===FindByAuthor==========\n");
+foreach($books as $book)
+    echo $book;
 ?>

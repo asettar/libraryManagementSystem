@@ -30,9 +30,16 @@ class BookRepository {
         return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
     
-    // public findByAuhtor(int $authorId) : array {
-
-    // }
+    public function findByAuthor(int $authorId) : array {
+		$rows = $this->database->fetchAll(
+			"SELECT b.* from books b
+			 JOIN book_author ba
+			 ON ba.book_isbn = b.isbn
+			 WHERE ba.author_id = :author_id"
+		, ["author_id" => $authorId]);
+        if (!$rows) return [];
+		return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
+    }
 }
 
 ?>
