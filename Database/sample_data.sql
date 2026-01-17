@@ -16,3 +16,9 @@ INSERT INTO books (isbn, title, publication_year, category, branch_id, status) V
 ('9780134685991', 'Effective Java', 2018, 'Programming', 1, 'lost');
 
 
+INSERT INTO authors (name, biography, nationality, birth_date, death_date, primary_genre) VALUES
+('George Orwell', 'English novelist, essayist, journalist, and critic.', 'British', '1903-06-25', '1950-01-21', 'Dystopian'),
+('J.K. Rowling', 'British author, best known for the Harry Potter series.', 'British', '1965-07-31', NULL, 'Fantasy'),
+('Haruki Murakami', 'Japanese writer of novels, short stories, and essays.', 'Japanese', '1949-01-12', NULL, 'Fiction'),
+('Jane Austen', 'English novelist known primarily for her six major novels.', 'British', '1775-12-16', '1817-07-18', 'Romance'),
+('Gabriel García Márquez', 'Colombian novelist, short-story writer, screenwriter and journalist.', 'Colombian', '1927-03-06', '2014-04-17', 'Magic Realism');

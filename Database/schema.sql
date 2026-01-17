@@ -17,3 +17,13 @@ CREATE TABLE books (
     FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
 
+CREATE TABLE authors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    biography TEXT NOT NULL,
+    nationality VARCHAR(100) NOT NULL,
+    birth_date DATETIME NOT NULL,
+    death_date DATETIME,
+    primary_genre VARCHAR(100) NOT NULL
+);
+
