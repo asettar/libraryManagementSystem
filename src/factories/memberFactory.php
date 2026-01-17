@@ -7,7 +7,7 @@ use src\models\Member;
 use src\models\FacultyMember;
 use src\models\StudentMember;
 
-class memberFactory {
+class MemberFactory {
     public static function createFromArray(array $data): Member
     {
         $args = [$data['id'], $data['name'], $data['email'], $data['phone_number'],
