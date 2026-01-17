@@ -63,10 +63,11 @@ abstract class Member
         // todo later : check currentBorrowedCount against limit 
         return false;
     }
-
-    public function returnBook() {
-        // to do :
+    
+    public function __toString() : string {
+        return "id :{$this->id}, name: {$this->name}, email: {$this->email},
+                membershipEndDate: {$this->membershipEndDate->format('Y-m-d')},
+                currentBorrowedCount : {$this->currentBorrowedCount}";
     }
-
     abstract public function renewMembership();
 }

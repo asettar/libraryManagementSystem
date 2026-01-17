@@ -3,7 +3,7 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use src\models\Book;
-use src\repositories\BookRepository;
+use src\repositories\{BookRepository, MemberRepository};
 use src\repositories\mySqlConnection;
 
 // db Connection;
@@ -31,4 +31,11 @@ $books = $BookRepo->findByAuthor(3);
 echo("===FindByAuthor==========\n");
 foreach($books as $book)
     echo $book;
+
+
+echo "Members ::\n";
+echo "==========findMemberbyId============\n";
+$memberRepo = new MemberRepository($db);
+$member = $memberRepo->findById(1);
+echo $member;
 ?>
