@@ -16,12 +16,13 @@ abstract class Member
     protected float     $lateFee;
     protected int       $borrowLimit;
 
-    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate, ) {
+    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate, int $currentBorrowedCount) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
         $this->membershipEndDate = $membershipEndDate;
+        $this->currentBorrowedCount = $currentBorrowedCount;
     }
 
     public function getId(): int {

@@ -69,9 +69,9 @@ INSERT INTO book_author (book_isbn, author_id) VALUES
 
 
 INSERT INTO members
-(name, email, phone_number, membership_end_date, current_borrowed_count, loan_period, late_fee, borrow_limit, role)
+(name, email, phone_number, membership_end_date, current_borrowed_count, role)
 VALUES
-('Ali Hassan', 'ali@student.edu', '0611111111', '2026-12-31', 0, 14, 1.50, 3, 'student'),
-('Sara Ahmed', 'sara@student.edu', '0622222222', '2026-06-30', 1, 14, 1.50, 3, 'student'),
-('Omar Khaled', 'omar@faculty.edu', '0633333333', '2027-12-31', 2, 30, 0.50, 10, 'faculty'),
-('Nadia Benali', 'nadia@faculty.edu', '0644444444', NULL, 0, 30, 0.50, 10, 'faculty');
+('Ali Hassan',  'ali@student.edu',   '0611111111', '2026-12-31', 0, 'student'),
+('Sara Ahmed', 'sara@student.edu',  '0622222222', '2026-06-30', 1, 'student'),
+('Omar Khaled','omar@faculty.edu',  '0633333333', '2027-12-31', 2, 'faculty'),
+('Nadia Benali','nadia@faculty.edu','0644444444', NULL,        0, 'faculty');

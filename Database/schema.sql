@@ -45,8 +45,5 @@ CREATE TABLE members (
     phone_number VARCHAR(50) NOT NULL,
     membership_end_date DATETIME DEFAULT NULL,
     current_borrowed_count INT NOT NULL DEFAULT 0,
-    loan_period INT NOT NULL,
-    late_fee FLOAT NOT NULL,  -- fee per day
-    borrow_limit INT NOT NULL,
     role ENUM('faculty', 'student') NOT NULL
 );
