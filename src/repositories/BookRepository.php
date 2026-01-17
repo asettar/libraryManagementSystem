@@ -13,23 +13,26 @@ class BookRepository {
     }
 
     public function findByISBN(string $ISBN) : ?Book {
-        $row = $this->database->fetch("SELECT * FROM books where ISBN = :ISBN", ["ISBN" => $ISBN]);
+        $row = $this->database->fetch("SELECT * FROM books WHERE ISBN = :ISBN", ["ISBN" => $ISBN]);
         if (!$row) return NULL;
         return BookFactory::createFromArray($row);
     }
     
-    public function findByTitle(string $title) : ?Book {
-        $row = $this->database->fetch("SELECT * FROM books where title = :title", ["title" => $title]);
-        if (!$row) return NULL;
-        return BookFactory::createFromArray($row);
-    }
-
-    public function findByCategory(string $category) : array {
-        $rows = $this->database->fetchAll("SELECT * FROM books where category = :category", ['category' => $category]);
+    public function findByTitle(string $title) : array {
+        $rows = $this->database->fetchAll("SELECT * FROM books WHERE title = :title", ["title" => $title] );
         if (!$rows) return [];
         return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
 
+    public function findByCategory(string $category) : array {
+        $rows = $this->database->fetchAll("SELECT * FROM books WHERE category = :category", ['category' => $category]);
+        if (!$rows) return [];
+        return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
+    }
+    
+    // public findByAuhtor(int $authorId) : array {
+
+    // }
 }
 
 ?>
