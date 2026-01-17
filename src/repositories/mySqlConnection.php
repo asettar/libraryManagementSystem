@@ -1,10 +1,11 @@
 <?php 
 
 namespace src\repositories;
-use src\interfaces\databaseInterface;
+use src\interfaces\ConnectionInterface;
 use PDO;
+use PDOStatement;
 
-class mySqlConnection implements databaseInterface {
+class MySqlConnection implements ConnectionInterface {
     private PDO $connection;
 
     private string $host = "localhost";
@@ -22,9 +23,29 @@ class mySqlConnection implements databaseInterface {
             die("Connection failed: " . $e->getMessage());
         }
     }
-    
-    public  function    getConnection() : PDO {
-        return $this->connection;
+
+    private function executeStatement(string $sql, array $data) : ?PDOStatement {
+        $stmt = $this->connection->prepare($sql);
+        $result = $stmt->execute($data);
+        if (!$result) return NULL;
+        return $stmt;
+    }
+
+    public function fetchAll(string $sql, array $data = []) : ?array {
+        $stmt = $this->executeStatement($sql, $data);
+        if (!$stmt) return NULL;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function fetch(string $sql, array $data = []) : ?array {
+        $stmt = $this->executeStatement($sql, $data);
+        if (!$stmt) return NULL;
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row ?: NULL;
+    }
+
+    public function query(string $sql, array $data) : bool {
+        return (bool)$this->executeStatement($sql, $data);
     }
 }
 

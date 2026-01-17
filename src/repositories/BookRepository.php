@@ -1,34 +1,29 @@
 <?php 
 
 namespace src\repositories;
-use src\interfaces\DatabaseInterface;
+use src\interfaces\ConnectionInterface;
 use src\models\Book;
 use PDO;
-use ReturnTypeWillChange;
 
 class BookRepository {
-    private PDO $connection;
-    public function __construct(DatabaseInterface $database) {
-        $this->connection = $database->getConnection();
+    private ConnectionInterface $database;
+    public function __construct(ConnectionInterface $database) {
+        $this->database = $database;
     }
 
     public function findByISBN(string $ISBN) : ?Book {
-        $stmt = $this->connection->prepare("SELECT * FROM books where ISBN = :ISBN");
-        $stmt->execute(['ISBN' => $ISBN]);
-
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $this->database->fetch("SELECT * FROM books where ISBN = :ISBN", ["ISBN" => $ISBN]);
         if (!$row) return NULL;
-        return new book($row['isbn'], $row['title'], $row['publication_year'], 
+        return new Book($row['isbn'], $row['title'], $row['publication_year'], 
         $row['category'], $row['branch_id'], $row['status']);
     }
 
     public function findByCategory(string $category) : array {
-        $stmt = $this->connection->prepare("SELECT * FROM books where category = :category");
-        $stmt->execute(['category' => $category]);
+        $rows = $this->database->fetchAll("SELECT * FROM books where category = :category", ['category' => $category]);
 
         $books = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $books[] = new book($row['isbn'], $row['title'], $row['publication_year'], 
+        foreach ($rows as $row) {
+            $books[] = new Book($row['isbn'], $row['title'], $row['publication_year'], 
             $row['category'], $row['branch_id'], $row['status']);
         }
         return $books;
