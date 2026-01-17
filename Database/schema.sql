@@ -7,13 +7,13 @@ CREATE TABLE branches (
 
 CREATE TABLE books (
     isbn VARCHAR(20) PRIMARY KEY,
-    title VARCHAR(255)  UNIQUE NOT NULL,
+    title VARCHAR(255) NOT NULL,
     publication_year YEAR NOT NULL,
     category VARCHAR(100) NOT NULL,
     branch_id INT NOT NULL,
     status ENUM('available', 'checked_out', 'reserved', 'lost') 
            NOT NULL DEFAULT 'available',
-
+    
     FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
 
@@ -27,3 +27,11 @@ CREATE TABLE authors (
     primary_genre VARCHAR(100) NOT NULL
 );
 
+
+CREATE TABLE book_author (
+    book_isbn VARCHAR(255) NOT NULL,
+    author_id INT NOT NULL,
+    PRIMARY KEY (book_isbn, author_id),
+    FOREIGN KEY (book_isbn) REFERENCES books(isbn) ON DELETE CASCADE,
+    FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE CASCADE
+);
