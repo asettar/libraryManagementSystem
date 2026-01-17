@@ -13,7 +13,7 @@ CREATE TABLE books (
     branch_id INT NOT NULL,
     status ENUM('available', 'checked_out', 'reserved', 'lost') 
            NOT NULL DEFAULT 'available',
-    
+
     FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
 
@@ -34,4 +34,19 @@ CREATE TABLE book_author (
     PRIMARY KEY (book_isbn, author_id),
     FOREIGN KEY (book_isbn) REFERENCES books(isbn) ON DELETE CASCADE,
     FOREIGN KEY (author_id) REFERENCES authors(id) ON DELETE CASCADE
+);
+
+
+-- members
+CREATE TABLE members (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    phone_number VARCHAR(50) NOT NULL,
+    membership_end_date DATETIME DEFAULT NULL,
+    current_borrowed_count INT NOT NULL DEFAULT 0,
+    loan_period INT NOT NULL,
+    late_fee FLOAT NOT NULL,  -- fee per day
+    borrow_limit INT NOT NULL,
+    role ENUM('faculty', 'student') NOT NULL
 );

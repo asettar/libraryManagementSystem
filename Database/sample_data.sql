@@ -7,9 +7,6 @@ INSERT INTO branches (name, location) VALUES
 ('Digital Media', 'Central Library – Third Floor'),
 ('Archives & Rare Books', 'Central Library – Basement');
 
--- ==========================
--- Books (unique ISBN for each copy/branch)
--- ==========================
 INSERT INTO books (isbn, title, publication_year, category, branch_id, status) VALUES
 ('9780132350884', 'Clean Code', 2008, 'Programming', 1, 'available'),
 ('9780132350885', 'Clean Code', 2008, 'Programming', 2, 'checked_out'),
@@ -70,3 +67,11 @@ INSERT INTO book_author (book_isbn, author_id) VALUES
 ('9780134685992', 5);
 
 
+
+INSERT INTO members
+(name, email, phone_number, membership_end_date, current_borrowed_count, loan_period, late_fee, borrow_limit, role)
+VALUES
+('Ali Hassan', 'ali@student.edu', '0611111111', '2026-12-31', 0, 14, 1.50, 3, 'student'),
+('Sara Ahmed', 'sara@student.edu', '0622222222', '2026-06-30', 1, 14, 1.50, 3, 'student'),
+('Omar Khaled', 'omar@faculty.edu', '0633333333', '2027-12-31', 2, 30, 0.50, 10, 'faculty'),
+('Nadia Benali', 'nadia@faculty.edu', '0644444444', NULL, 0, 30, 0.50, 10, 'faculty');
