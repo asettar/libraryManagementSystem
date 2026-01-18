@@ -25,5 +25,13 @@ class BorrowRepository {
         return $this->database->query($sql, ['bookIsbn' => $bookIsbn, 'memberId' => $memberId]);
     }
 
+   public function insert(BorrowRecord $record): bool {
+    $data = $record->getData();
+    $sql = "INSERT INTO borrow_records (book_isbn, member_id, borrow_date, due_date)
+            VALUES (:book_isbn, :member_id, :borrow_date, :due_date)";
+    return $this->database->query($sql, $data);
+}
+
+
 }
 ?>
