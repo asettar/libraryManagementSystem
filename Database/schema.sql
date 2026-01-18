@@ -48,3 +48,15 @@ CREATE TABLE members (
     unpaid_fees FLOAT NOT NULL DEFAULT 0
 );
 
+
+--borrow records:
+
+CREATE TABLE borrow_records (
+    book_isbn VARCHAR(20) NOT NULL,
+    member_id INT NOT NULL,
+    borrow_date DATETIME NOT NULL,
+    due_date DATETIME NOT NULL,
+    PRIMARY KEY (book_isbn, member_id, borrow_date),
+    FOREIGN KEY (book_isbn) REFERENCES books(isbn),
+    FOREIGN KEY (member_id) REFERENCES members(id)
+);

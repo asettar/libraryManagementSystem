@@ -75,3 +75,12 @@ VALUES
 ('Sara Ahmed',   'sara@student.edu',   '0622222222', '2026-06-30', 1, 'student', 12.50),
 ('Omar Khaled',  'omar@faculty.edu',   '0633333333', '2027-12-31', 2, 'faculty', 0.00),
 ('Nadia Benali', 'nadia@faculty.edu',  '0644444444', NULL,        0, 'faculty', 8.75);
+
+
+INSERT INTO borrow_records (book_isbn, member_id, borrow_date, due_date) VALUES
+-- Students
+('9780201633610', 2, '2026-01-10 14:30:00', '2026-01-24 14:30:00'),  -- Sara Ahmed
+
+-- Faculty (Omar Khaled) with 2 borrows
+('9780131103627', 3, '2026-01-10 09:00:00', '2026-02-09 09:00:00'),
+('9780262033848', 3, '2026-01-12 11:00:00', '2026-02-11 11:00:00');
