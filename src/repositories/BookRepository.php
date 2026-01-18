@@ -13,21 +13,21 @@ class BookRepository {
         $this->database = $database;
     }
 
-    public function findByISBN(string $ISBN) : ?Book {
-        $row = $this->database->fetch("SELECT * FROM books WHERE ISBN = :ISBN", ["ISBN" => $ISBN]);
-        if (!$row) return NULL;
+    public function findByISBN(string $ISBN) : Book {
+        $row = $this->database->fetch("SELECT * FROM books WHERE isbn = :ISBN", ["ISBN" => $ISBN]);
+        if (!$row) throw new \Exception("Book with isbn: $ISBN not found.");
         return BookFactory::createFromArray($row);
     }
     
     public function findByTitle(string $title) : array {
         $rows = $this->database->fetchAll("SELECT * FROM books WHERE title = :title", ["title" => $title] );
-        if (!$rows) return [];
+        if (!$rows) throw new \Exception("no Book with title: $title was found.");
         return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
 
     public function findByCategory(string $category) : array {
         $rows = $this->database->fetchAll("SELECT * FROM books WHERE category = :category", ['category' => $category]);
-        if (!$rows) return [];
+        if (!$rows) throw new \Exception("no Book having category: $category was found.");
         return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
     
@@ -38,7 +38,7 @@ class BookRepository {
 			 ON ba.book_isbn = b.isbn
 			 WHERE ba.author_id = :author_id"
 		, ["author_id" => $authorId]);
-        if (!$rows) return [];
+        if (!$rows) throw new \Exception("no Book found for author with id : $authorId");
 		return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
 

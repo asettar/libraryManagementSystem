@@ -11,9 +11,9 @@ class MemberRepository {
         $this->database = $database;
     }
 
-    public function findById(int $id) : ?Member {
+    public function findById(int $id) : Member {
         $row = $this->database->fetch("SELECT * FROM members WHERE id = :id", ["id" => $id]);
-        if (!$row) return NULL;
+        if (!$row) throw new \Exception("Member with id : $id not found.");
         return MemberFactory::createFromArray($row);
     }
 
