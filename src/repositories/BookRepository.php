@@ -5,6 +5,7 @@ use src\interfaces\ConnectionInterface;
 use src\models\Book;
 use src\factories\BookFactory;
 use PDO;
+use src\models\Author;
 
 class BookRepository {
     private ConnectionInterface $database;
@@ -40,6 +41,17 @@ class BookRepository {
         if (!$rows) return [];
 		return array_map(fn($row) => BookFactory::createFromArray($row), $rows);
     }
+
+	public function update(Book $book) {
+		$data = $book->getChangeableData();
+		$feilds = [];
+		foreach($data as $key => $value) {
+			if (is_string($value)) $value = "'$value'";
+			$feilds[] = $key . "=" . $value;
+		}
+		$sql = "UPDATE books SET " . implode(', ', $feilds) . " WHERE isbn = '{$book->getIsbn()}'";
+		$this->database->query($sql);  
+	}
 }
 
 ?>

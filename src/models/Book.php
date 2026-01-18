@@ -11,14 +11,17 @@ class Book
     private string      $category;
     private int         $branchId;
     private string      $status;       // available, checked_out, reserved, lost
+    private int         $isRenewed;
 
-    public function __construct(string $isbn, string $title, string $publicationYear, string $category, int $branchId, string $status) {
+    public function __construct(string $isbn, string $title, string $publicationYear, string $category,
+        int $branchId, string $status, int $isRenewed) {
         $this->isbn = $isbn;
         $this->title = $title;
         $this->publicationYear = $publicationYear;
         $this->category = $category;
         $this->branchId = $branchId;
         $this->status = $status;
+        $this->isRenewed = $isRenewed;
     }
 
     public function getIsbn(): string {
@@ -63,5 +66,12 @@ class Book
 
     public function __toString() {
         return "ISBN: {$this->isbn}, Title: {$this->title}, Status: {$this->status}, branch_id : {$this->branchId}, Category: {$this->category}" . PHP_EOL;
+    }
+
+    public function getChangeableData(): array {
+        return [
+            'status' => $this->status,
+            'is_renewed' => $this->isRenewed ? 1 : 0
+        ];
     }
 }

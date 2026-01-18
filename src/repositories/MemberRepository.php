@@ -18,5 +18,4 @@ class MemberRepository {
         if (!$row) return NULL;
         return MemberFactory::createFromArray($row);
     }}
-
 ?>
