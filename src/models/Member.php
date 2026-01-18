@@ -60,6 +60,15 @@ abstract class Member
         return $this->lateFee;
     }
 
+    public function getChangeableData() : array {
+        return [
+            'phone_number '          => $this->phoneNumber,
+            'membership_end_date'    => $this->membershipEndDate ? $this->membershipEndDate->format('Y-m-d H:i:s') : null, 
+            'current_borrowed_count' => $this->currentBorrowedCount,
+            'unpaid_fees'            => $this->unpaidFees
+        ];
+    }
+
     public function hasActiveMembership(): bool {
         $currentDate = new DateTime();
         return ($this->membershipEndDate && $currentDate <= $this->membershipEndDate);

@@ -12,7 +12,6 @@ class BorrowService {
         // }
         // renewBook(memberId, bookIsbn) 
         // returnBook(memberId, bookIsbn) {
-        // viewBorrowHistory(memberId);
 }
 
 ?>
