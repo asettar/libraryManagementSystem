@@ -11,9 +11,8 @@ CREATE TABLE books (
     publication_year YEAR NOT NULL,
     category VARCHAR(100) NOT NULL,
     branch_id INT NOT NULL,
-    status ENUM('available', 'checked_out', 'reserved', 'lost') 
-           NOT NULL DEFAULT 'available',
-
+    status ENUM('available', 'checked_out', 'reserved', 'lost') NOT NULL DEFAULT 'available',
+    is_renewed BOOLEAN NOT NULL DEFAULT 0,
     FOREIGN KEY (branch_id) REFERENCES branches(id)
 );
 
@@ -45,5 +44,7 @@ CREATE TABLE members (
     phone_number VARCHAR(50) NOT NULL,
     membership_end_date DATETIME DEFAULT NULL,
     current_borrowed_count INT NOT NULL DEFAULT 0,
-    role ENUM('faculty', 'student') NOT NULL
+    role ENUM('faculty', 'student') NOT NULL,
+    unpaid_fees FLOAT NOT NULL DEFAULT 0
 );
+

@@ -7,23 +7,23 @@ INSERT INTO branches (name, location) VALUES
 ('Digital Media', 'Central Library – Third Floor'),
 ('Archives & Rare Books', 'Central Library – Basement');
 
-INSERT INTO books (isbn, title, publication_year, category, branch_id, status) VALUES
-('9780132350884', 'Clean Code', 2008, 'Programming', 1, 'available'),
-('9780132350885', 'Clean Code', 2008, 'Programming', 2, 'checked_out'),
-('9780132350886', 'Clean Code', 2008, 'Programming', 3, 'available'),
+INSERT INTO books (isbn, title, publication_year, category, branch_id, status, is_renewed) VALUES
+('9780132350884', 'Clean Code', 2008, 'Programming', 1, 'available', 0),
+('9780132350885', 'Clean Code', 2008, 'Programming', 2, 'checked_out', 0),
+('9780132350886', 'Clean Code', 2008, 'Programming', 3, 'available', 0),
 
-('9780201633610', 'Design Patterns', 1994, 'Software Engineering', 1, 'checked_out'),
+('9780201633610', 'Design Patterns', 1994, 'Software Engineering', 1, 'checked_out', 0),
 
-('9780131103627', 'The C Programming Language', 1988, 'Programming', 2, 'reserved'),
-('9780131103628', 'The C Programming Language', 1988, 'Programming', 1, 'available'),
+('9780131103627', 'The C Programming Language', 1988, 'Programming', 2, 'reserved', 0),
+('9780131103628', 'The C Programming Language', 1988, 'Programming', 1, 'available', 0),
 
-('9780262033848', 'Introduction to Algorithms', 2009, 'Algorithms', 2, 'available'),
+('9780262033848', 'Introduction to Algorithms', 2009, 'Algorithms', 2, 'available', 0),
 
-('9780262033850', 'Introduction to Algorithms 2', 2010, 'Algorithms', 2, 'available'),
-('9780262033851', 'Introduction to Algorithms 2', 2010, 'Algorithms', 3, 'available'),
+('9780262033850', 'Introduction to Algorithms 2', 2010, 'Algorithms', 2, 'available', 0),
+('9780262033851', 'Introduction to Algorithms 2', 2010, 'Algorithms', 3, 'available', 0),
 
-('9780134685991', 'Effective Java', 2018, 'Programming', 1, 'lost'),
-('9780134685992', 'Effective Java', 2018, 'Programming', 2, 'available');
+('9780134685991', 'Effective Java', 2018, 'Programming', 1, 'lost', 0),
+('9780134685992', 'Effective Java', 2018, 'Programming', 2, 'available', 0);
 
 
 INSERT INTO authors (name, biography, nationality, birth_date, death_date, primary_genre) VALUES
@@ -69,9 +69,9 @@ INSERT INTO book_author (book_isbn, author_id) VALUES
 
 
 INSERT INTO members
-(name, email, phone_number, membership_end_date, current_borrowed_count, role)
+(name, email, phone_number, membership_end_date, current_borrowed_count, role, unpaid_fees)
 VALUES
-('Ali Hassan',  'ali@student.edu',   '0611111111', '2026-12-31', 0, 'student'),
-('Sara Ahmed', 'sara@student.edu',  '0622222222', '2026-06-30', 1, 'student'),
-('Omar Khaled','omar@faculty.edu',  '0633333333', '2027-12-31', 2, 'faculty'),
-('Nadia Benali','nadia@faculty.edu','0644444444', NULL,        0, 'faculty');
+('Ali Hassan',   'ali@student.edu',    '0611111111', '2026-12-31', 0, 'student', 5.00),
+('Sara Ahmed',   'sara@student.edu',   '0622222222', '2026-06-30', 1, 'student', 12.50),
+('Omar Khaled',  'omar@faculty.edu',   '0633333333', '2027-12-31', 2, 'faculty', 0.00),
+('Nadia Benali', 'nadia@faculty.edu',  '0644444444', NULL,        0, 'faculty', 8.75);
