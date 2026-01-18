@@ -1,11 +1,10 @@
-INSERT INTO branches (name, location) VALUES
-('Main Branch', 'Central Library – Ground Floor'),
-('Reference Section', 'Central Library – First Floor'),
-('Science & Technology', 'Central Library – Second Floor'),
-('Literature & Arts', 'Central Library – West Wing'),
-('Children’s Library', 'Central Library – East Wing'),
-('Digital Media', 'Central Library – Third Floor'),
-('Archives & Rare Books', 'Central Library – Basement');
+INSERT INTO branches (name, location, operating_hours) VALUES
+('Main', 'Ground Floor', 50),
+('Reference', 'First Floor', 40),
+('Science', 'Second Floor', 45),
+('Arts', 'West Wing', 35),
+('Children', 'East Wing', 30),
+('Digital', 'Third Floor', 40);
 
 INSERT INTO books (isbn, title, publication_year, category, branch_id, status, is_renewed) VALUES
 ('9780132350884', 'Clean Code', 2008, 'Programming', 1, 'available', 0),
