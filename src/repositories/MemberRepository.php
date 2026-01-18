@@ -2,9 +2,7 @@
 
 namespace src\repositories;
 use src\interfaces\ConnectionInterface;
-use src\models\Book;
 use src\factories\MemberFactory;
-use PDO;
 use src\models\Member;
 
 class MemberRepository {

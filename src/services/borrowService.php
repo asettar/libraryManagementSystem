@@ -6,9 +6,9 @@ class BorrowService {
         // private bookRepo;
         
         // borrowBook(memberId, branchId, bookIsbn) {
-        //     // validate meber
+        //     // validate member, branch
         //     // check bookavailability
-        //     // booroRepo->cretaeborrowRecod
+        //     // booroRepo->createborrowRecod
         // }
         // renewBook(memberId, bookIsbn) 
         // returnBook(memberId, bookIsbn) {
