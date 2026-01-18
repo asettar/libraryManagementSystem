@@ -6,9 +6,10 @@ use DateTime;
 
 class FacultyMember extends Member
 {
-    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate, int $currentBorrowedCount)
+    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate,
+            int $currentBorrowedCount, float $unpaidFees)
     {
-        parent::__construct($id, $name, $email, $phoneNumber, $membershipEndDate, $currentBorrowedCount);
+        parent::__construct($id, $name, $email, $phoneNumber, $membershipEndDate, $currentBorrowedCount, $unpaidFees);
         $this->borrowLimit = 10;
         $this->loanPeriod = 30;
         $this->lateFee = 0.25;

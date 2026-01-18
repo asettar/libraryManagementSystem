@@ -12,17 +12,20 @@ abstract class Member
     protected string    $phoneNumber;
     protected ?DateTime $membershipEndDate = null;
     protected int       $currentBorrowedCount; 
+    protected float     $unpaidFees;
     protected int       $loanPeriod;
     protected float     $lateFee;
     protected int       $borrowLimit;
 
-    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate, int $currentBorrowedCount) {
+    public function __construct(int $id, string $name, string $email, string $phoneNumber, ?DateTime $membershipEndDate,
+            int $currentBorrowedCount, float $unpaidFees) {
         $this->id = $id;
         $this->name = $name;
         $this->email = $email;
         $this->phoneNumber = $phoneNumber;
         $this->membershipEndDate = $membershipEndDate;
         $this->currentBorrowedCount = $currentBorrowedCount;
+        $this->unpaidFees = $unpaidFees;
     }
 
     public function getId(): int {
@@ -39,6 +42,10 @@ abstract class Member
 
     public function getMembershipEndDate(): ?DateTime {
         return $this->membershipEndDate;
+    }
+
+    public function getUnpaidFees() : ? float {
+        return $this->unpaidFees;
     }
 
     public function getLoanPeriod(): int {
@@ -67,7 +74,9 @@ abstract class Member
     public function __toString() : string {
         return "id :{$this->id}, name: {$this->name}, email: {$this->email},
                 membershipEndDate: {$this->membershipEndDate->format('Y-m-d')},
-                currentBorrowedCount : {$this->currentBorrowedCount}";
+                currentBorrowedCount : {$this->currentBorrowedCount}, 
+                unpaidFees : {$this->unpaidFees}";
     }
+    
     abstract public function renewMembership();
 }

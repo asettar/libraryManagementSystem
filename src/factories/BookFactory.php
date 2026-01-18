@@ -12,7 +12,8 @@ class BookFactory {
             $data['publication_year'],
             $data['category'],
             $data['branch_id'],
-            $data['status']
+            $data['status'],
+            $data['is_renewed']
         );
     }
 }

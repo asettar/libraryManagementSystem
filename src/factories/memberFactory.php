@@ -11,7 +11,8 @@ class MemberFactory {
     public static function createFromArray(array $data): Member
     {
         $args = [$data['id'], $data['name'], $data['email'], $data['phone_number'],
-                $data['membership_end_date'] ? new DateTime($data['membership_end_date']) : null, $data['current_borrowed_count']];
+                $data['membership_end_date'] ? new DateTime($data['membership_end_date']) : null,
+                $data['current_borrowed_count'], $data['unpaid_fees']];
 
         switch ($data['role']) {
             case 'faculty':
