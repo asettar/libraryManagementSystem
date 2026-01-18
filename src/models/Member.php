@@ -75,9 +75,8 @@ abstract class Member
     }
     
     public function canBorrow() : bool {
-        if ($this->hasActiveMembership()) return true;
-        // todo later : check currentBorrowedCount against limit 
-        return false;
+        return ($this->hasActiveMembership() && $this->currentBorrowedCount < $this->borrowLimit
+                && $this->unpaidFees < 10);  
     }
     
     public function __toString() : string {
