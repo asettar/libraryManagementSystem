@@ -18,5 +18,12 @@ class BorrowRepository {
         if (!$row) return NULL;
         return BorrowRecordFactory::createFromArray($row);
     }
+    
+    public function delete(string $bookIsbn, int $memberId) : bool {
+        $sql = "DELETE FROM borrow_records
+                 WHERE book_isbn = :bookIsbn AND member_id = :memberId"; 
+        return $this->database->query($sql, ['bookIsbn' => $bookIsbn, 'memberId' => $memberId]);
+    }
+
 }
 ?>
