@@ -41,5 +41,14 @@ class BorrowRecord {
              . "Borrowed On: {$this->borrowDate->format('Y-m-d')}, "
              . "Due On: {$this->dueDate->format('Y-m-d')}";
     }
+
+    public function getData() : array {
+        return [
+            'book_isbn' => $this->bookIsbn,
+            'member_id' => $this->memberId,
+            'borrow_date' => $this->borrowDate->format('Y-m-d H:i:s'),
+            'due_date' => $this->dueDate->format('Y-m-d H:i:s'),
+        ];
+    }
 }
 ?>
