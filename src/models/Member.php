@@ -94,5 +94,14 @@ abstract class Member
         $this->currentBorrowedCount--;
     }
 
+    public function payFees(float $fees) {
+        $this->unpaidFees -= $fees;
+        $this->unpaidFees = max(0, $this->unpaidFees);        
+    }
+
+    public function addFees(float $fees) {
+        $this->unpaidFees += $fees;
+    }
+
     abstract public function renewMembership();
 }
