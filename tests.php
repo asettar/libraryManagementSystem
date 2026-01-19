@@ -6,6 +6,10 @@ use src\models\Book;
 use src\repositories\{BookRepository, MemberRepository};
 use src\repositories\mySqlConnection;
 
+function display(array $data) {
+    foreach($data as $x) echo $x;
+    echo "\n";
+}
 // db Connection;
 $db = new mySqlConnection();
 echo "database is succesfully connected" . PHP_EOL;
@@ -31,8 +35,17 @@ $books = $BookRepo->findByAuthor(3);
 echo("===FindByAuthor==========\n");
 foreach($books as $book)
     echo $book;
+// echo ("======no authors found check\n");
+// foreach($books as $book)
+//     echo $book;
 
-
+echo ("=== no book found check:======\n");
+try {
+    display($BookRepo->findByISBN('4534345'));
+}catch(Exception $e) {echo $e->getMessage();};
+try {
+    display($BookRepo->findByTitle('4534345'));
+}catch(Exception $e) {echo $e->getMessage();};
 echo "Members ::\n";
 echo "==========findMemberbyId============\n";
 $memberRepo = new MemberRepository($db);
