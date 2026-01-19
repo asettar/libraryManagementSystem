@@ -3,7 +3,7 @@
 namespace src\services;
 
 use src\factories\BorrowRecordFactory;
-use src\models\{Book, Member, Branch};
+use src\models\{Book, BorrowRecord, Member, Branch};
 use src\repositories\{MemberRepository, BorrowRepository, BookRepository, BranchRepository};
 use DateTime;
 
@@ -22,41 +22,37 @@ class BorrowService {
         $this->branchRepo = $branchRepo;
     }
     
-    private function addBorrowRecord($bookIsbn, $memberId) {
-        $borrowRecord = BorrowRecordFactory::createFromArray(
-            [
-                'book_isbn' => $bookIsbn,
-                'member_id' => $memberId,
-                'borrow_date' => (new DateTime())->format('Y-m-d H:i:s'),
-                'due_date' => (new DateTime())->modify("+{$memberId->getLoanPeriod()} days")->format('Y-m-d H:i:s'),
-            ]
-        );
-
+    private function    updateReposOnSuccesfullBorrow(Book $book, Member $member, BorrowRecord $borrowRecord) : void {
+        $this->bookRepo->update($book);
+        $this->memberRepo->update($member);
         $this->borrowRepo->insert($borrowRecord);
-        echo $borrowRecord; 
     }
-
-    public function borrowBook(int $memberId, int $branchId, string $bookIsbn) {
+        
+    public function borrowBook(int $memberId, int $branchId, string $bookIsbn) : BorrowRecord{
         $member = $this->memberRepo->findById($memberId);
         $branch = $this->branchRepo->findById($branchId);
         $book = $this->bookRepo->findByISBN($bookIsbn);
-
+        
         if (!$member->canBorrow() || $this->borrowRepo->memberHasOverdueBooks($memberId))
-            throw new \Exception("Member with id : $memberId is not available for borrowing");
+            throw new \Exception("Member with id : $memberId is not available for borrowing.");
         
         if (!$book->isAvailable())
             throw new \Exception("Book with isbn : $bookIsbn is currently not available.");
         
-        // update 
         $book->setStatus('checked_out');
-        $member->incrementCurrentBorrows(); 
-        $this->bookRepo->update($book);
-        $this->memberRepo->update($member);
-
-        // createRecord
-        $this->addBorrowRecord($memberId, $bookIsbn);
+        $member->incrementCurrentBorrows();
+        $borrowRecord = BorrowRecordFactory::createFromArray(
+            [
+                'book_isbn' => $bookIsbn,
+                'member_id' => $member->getId(),
+                'borrow_date' => (new DateTime())->format('Y-m-d H:i:s'),
+                'due_date' => (new DateTime())->modify("+{$member->getLoanPeriod()} days")->format('Y-m-d H:i:s'),
+            ]
+        );
+        $this->updateReposOnSuccesfullBorrow($book, $member, $borrowRecord);    
+        return $borrowRecord;
     }
-        
+    
         
         
         //  renewBook(memberId, bookIsbn) {

@@ -51,6 +51,10 @@ abstract class Member
     public function getLoanPeriod(): int {
         return $this->loanPeriod;
     }
+    
+    public function getCurrentBorrowedCount(): int {
+        return $this->currentBorrowedCount;
+    }
 
     public function getBorrowLimit(): int {
         return $this->borrowLimit;
