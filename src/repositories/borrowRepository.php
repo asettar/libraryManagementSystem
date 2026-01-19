@@ -31,5 +31,12 @@ class BorrowRepository {
                 VALUES (:book_isbn, :member_id, :borrow_date, :due_date)";
         return $this->database->query($sql, $data);
     }
+
+    public function memberHasOverdueBooks(int $memberId) : bool {
+        $sql = "SELECT * from borrow_records
+                 WHERE  member_id = $memberId AND due_date < NOW()
+                 LIMIT 1";
+        return $this->database->query($sql);
+    }
 }
 ?>

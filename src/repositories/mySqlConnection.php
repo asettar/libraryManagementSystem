@@ -44,8 +44,10 @@ class MySqlConnection implements ConnectionInterface {
         return $row ?: NULL;
     }
 
-    public function query(string $sql, array $data = []) : bool {
-        return (bool)$this->executeStatement($sql, $data);
+    public function query(string $sql,   $data = []) : bool {
+        $stmt = $this->executeStatement($sql, $data);
+        
+        return ($stmt && $stmt->rowCount() > 0);
     }
 }
 
