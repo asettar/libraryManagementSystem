@@ -49,6 +49,14 @@ class MySqlConnection implements ConnectionInterface {
         
         return ($stmt && $stmt->rowCount() > 0);
     }
+
+    public function beginTransaction() : bool {
+        return $this->connection->beginTransaction();
+    }
+
+    public function rollBack() : bool {
+        return $this->connection->rollBack();
+    }
 }
 
 ?>
