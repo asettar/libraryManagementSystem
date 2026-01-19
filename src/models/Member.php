@@ -86,5 +86,13 @@ abstract class Member
                 unpaidFees : {$this->unpaidFees}";
     }
     
+    public function incrementCurrentBorrows() {
+        $this->currentBorrowedCount++;
+    }
+
+    public function decrementCurrentBorrows() {
+        $this->currentBorrowedCount--;
+    }
+
     abstract public function renewMembership();
 }
