@@ -6,6 +6,7 @@ use src\models\{Member};
 use src\repositories\{MemberRepository};
 use DateTime;
 use Exception;
+use PDOException;
 
 class ManagementService {
     private MemberRepository    $memberRepo;
@@ -14,9 +15,6 @@ class ManagementService {
         $this->memberRepo = $memberRepo;
     }
     
-    // renewMembership(memberID);
-    // updateContact(memberId);
-    //  payFees(memberId) 
 
     public function renewMembership(int $memberId) : void {
         $member = $this->memberRepo->findById($memberId);
@@ -24,11 +22,16 @@ class ManagementService {
         $this->memberRepo->update($member);
     }
 
-    public function updateContact(int $memberId) : void {
-
+    public function updateMemberContact(int $memberId, string $phoneNumber, string $email) : void {
+        $member = $this->memberRepo->findById($memberId);
+        $member->setPhoneNumber($phoneNumber);
+        $member->setEmail($email);
+        $this->memberRepo->update($member);
     }
+    
+    //  payFees(memberId) 
 
-    public function regiterNewMember() : void {
+    public function registerNewMember() : void {
 
     }
 

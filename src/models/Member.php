@@ -48,6 +48,10 @@ abstract class Member
         return $this->unpaidFees;
     }
 
+    public function getPhoneNumber() : string {
+        return $this->phoneNumber;
+    }
+
     public function getLoanPeriod(): int {
         return $this->loanPeriod;
     }
