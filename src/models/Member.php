@@ -66,11 +66,20 @@ abstract class Member
 
     public function getChangeableData() : array {
         return [
+            'email'                 => $this->email,
             'phone_number '          => $this->phoneNumber,
             'membership_end_date'    => $this->membershipEndDate ? $this->membershipEndDate->format('Y-m-d H:i:s') : null, 
             'current_borrowed_count' => $this->currentBorrowedCount,
             'unpaid_fees'            => $this->unpaidFees
         ];
+    }
+
+    public function setPhoneNumber($phoneNumber) : void {
+        $this->phoneNumber = $phoneNumber;
+    }
+
+    public function setEmail($email) : void {
+        $this->email = $email;
     }
 
     public function hasActiveMembership(): bool {
