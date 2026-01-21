@@ -39,6 +39,13 @@ class ManagementServiceTests extends TestCase {
         $this->assertEquals($member->getEmail(), 'sara2@student.edu');
         $this->assertEquals($member->getPhoneNumber(), '0612345678');
     }
+
+    public function testPayFees() {
+        $this->managementSerivce->payMemberFees(2, 10);
+        $member = $this->memberRepo->findById(2);
+
+        $this->assertEquals($member->getUnpaidFees(), 2.5);
+    }
 }
 
 
