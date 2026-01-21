@@ -48,9 +48,17 @@ class Book
         return $this->status;
     }
 
-    public function setStatus($status) {
+    public function setStatus($status) : void {
         $this->status = $status;
     } 
+        
+    public function renew() : void {
+        $this->isRenewed = true;
+    }
+
+    public function unrenew() : void {
+        $this->isRenewed = false;
+    }
 
     public function isAvailable(): bool {
         return $this->status === 'available';
@@ -75,4 +83,5 @@ class Book
             'is_renewed' => $this->isRenewed ? 1 : 0
         ];
     }
+
 }
