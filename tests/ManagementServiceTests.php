@@ -32,6 +32,13 @@ class ManagementServiceTests extends TestCase {
         $this->assertNotEquals($membershipEndDate, $newMembershipEndDate);
     }
     
+    public function testContactUpdate() {
+        $this->managementSerivce->updateMemberContact(2, '0612345678','sara2@student.edu');
+        $member = $this->memberRepo->findById(2);
+        
+        $this->assertEquals($member->getEmail(), 'sara2@student.edu');
+        $this->assertEquals($member->getPhoneNumber(), '0612345678');
+    }
 }
 
 
