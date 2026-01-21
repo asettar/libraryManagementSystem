@@ -25,7 +25,7 @@ class MemberRepository {
 			$feilds[] = $key . "=" . $value;
 		}
 		$sql = "UPDATE members SET " . implode(', ', $feilds) . " WHERE id = {$member->getId()}";
-		$this->database->query($sql); 
+		if (!$this->database->query($sql)) throw new \Exception ("Member update failed."); 
     }
 }
 ?>

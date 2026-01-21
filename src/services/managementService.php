@@ -29,7 +29,11 @@ class ManagementService {
         $this->memberRepo->update($member);
     }
     
-    //  payFees(memberId) 
+    public function payMemberFees(int $memberId, float $fees) {
+        $member = $this->memberRepo->findById($memberId);
+        $member->payFees($fees);
+        $this->memberRepo->update($member);
+    } 
 
     public function registerNewMember() : void {
 
