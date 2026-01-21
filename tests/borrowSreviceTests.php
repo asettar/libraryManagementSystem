@@ -78,5 +78,36 @@ class borrowSreviceTests extends TestCase {
         $this->assertEquals($member->getCurrentBorrowedCount(), $prevMember->getCurrentBorrowedCount() + 1);
         // BorrowRecord
     }
+
+    // return book tests
+    public function testrecordDeletionOnBookReturn() {
+        $this->borrowRepo->find('9780201633610', 2);  // no exception throw 
+        $this->borrowService->returnBook(2, '9780201633610'); // no exception
+        
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage("borrow record not found");
+        $this->borrowRepo->find('9780201633610', 2); 
+    }
+
+    public function testBookUdpatesOnBookReturn() {
+        $borrowRecord = $this->borrowService->returnBook(2, '9780201633610'); // no exception
+
+        $book = $this->bookRepo->findByISBN('9780201633610');
+        $bookStatus = $book->getStatus();
+        $this->assertNotEquals($bookStatus, 'checked_out');
+        $this->assertTrue($bookStatus === 'reserved' || $bookStatus == 'available');
+    }
+
+    public function testMemberUdpatesOnBookReturn() {
+        $member = $this->memberRepo->findById(2);
+        $unpaidFees = $member->getUnpaidFees(); 
+        $borrows = $member->getCurrentBorrowedCount(); 
+        $this->borrowService->returnBook(2, '9780201633610'); // no exception
+
+        $member = $this->memberRepo->findById(2);
+        $this->assertEquals($member->getUnpaidFees(), $unpaidFees, "unpaid fees failed");
+        $this->assertEquals($member->getCurrentBorrowedCount(), $borrows -1, "borrows count failed");
+    }
+
 }
 ?>

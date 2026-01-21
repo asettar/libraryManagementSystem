@@ -60,8 +60,9 @@ class BorrowService {
         
         // delete from borrowing records
         $this->borrowRepo->delete($bookIsbn, $memberId);
-        // update fees if latereturn
+        // update member : fees/ borrows
         $member->returnBook($borrowRecord->getDueDate());
+        $member->decrementCurrentBorrows();
         $this->memberRepo->update($member);
         
         // updateBook
