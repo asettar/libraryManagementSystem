@@ -53,22 +53,33 @@ class BorrowService {
         return $borrowRecord;
     }
     
+    public function returnBook(int $memberId, string $bookIsbn) {
+        $borrowRecord = $this->borrowRepo->find($bookIsbn, $memberId);
+        $book = $this->bookRepo->findByISBN($bookIsbn);
+        $member = $this->memberRepo->findById($memberId);
         
+        // delete from borrowing records
+        $this->borrowRepo->delete($bookIsbn, $memberId);
+        // update fees if latereturn
+        $member->returnBook($borrowRecord->getDueDate());
+        $this->memberRepo->update($member);
         
-        //  renewBook(memberId, bookIsbn) {
-        //     validate member, book
-                        // book is not renewed yet 
-                        // status is checkedout(no reserve yet)
-                        // no overdue books (from borrowRepository)   
-                // delete previous borrowRecord
-                // createNewBorrowRecord()
-        // } 
-
-        // returnBook(memberId, bookIsbn) {
-                // calculate latefees if there exist
-                // update member 
-                // update book status -> available
-        // }
+        // updateBook
+        if ($book->getStatus() !== 'reserved')
+            $book->setStatus('available');
+        $book->unrenew();
+        $this->bookRepo->update($book);
+    }
+        
+    // public function renewBook(int $memberId, string $bookIsbn) {
+        // $book = $this->bookRepo->findByISBN($bookIsbn);
+        // validate member, book
+        //             book is not renewed yet 
+        //             status is checkedout(no reserve yet)
+        //             no overdue books (from borrowRepository)   
+        //     delete previous borrowRecord
+        //     createNewBorrowRecord()
+    // } 
 }
 
 ?>
