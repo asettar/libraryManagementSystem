@@ -48,6 +48,18 @@ class Book
         return $this->status;
     }
 
+    public function isRenewd() : bool {
+        return $this->isRenewd();
+    }
+
+    public function isAvailable(): bool {
+        return $this->status === 'available';
+    }
+
+    public function isReserved(): bool {
+        return $this->status === 'reserved';
+    }
+
     public function setStatus($status) : void {
         $this->status = $status;
     } 
@@ -60,11 +72,7 @@ class Book
         $this->isRenewed = false;
     }
 
-    public function isAvailable(): bool {
-        return $this->status === 'available';
-    }
-
-     public function canBeBorrowed() : bool {
+    public function canBeBorrowed() : bool {
         return ($this->isAvailable());
     }
 
