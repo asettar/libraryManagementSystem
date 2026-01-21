@@ -36,6 +36,14 @@ class BorrowRecord {
         return $currentDate > $this->dueDate;
     }
 
+    public function setBorrowDate(DateTime $date) : void {
+        $this->borrowDate = $date;
+    }
+
+    public function setDueDate(DateTime $date) : void {
+        $this->dueDate = $date;
+    }
+
     public function __toString(): string {
         return "Book ISBN: {$this->bookIsbn}, Member ID: {$this->memberId}, "
              . "Borrowed On: {$this->borrowDate->format('Y-m-d')}, "
