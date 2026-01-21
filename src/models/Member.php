@@ -90,22 +90,29 @@ abstract class Member
                 unpaidFees : {$this->unpaidFees}";
     }
     
-    public function incrementCurrentBorrows() {
+    public function incrementCurrentBorrows() : void {
         $this->currentBorrowedCount++;
     }
 
-    public function decrementCurrentBorrows() {
+    public function decrementCurrentBorrows() : void {
         $this->currentBorrowedCount--;
     }
 
-    public function payFees(float $fees) {
+    public function payFees(float $fees) : void {
         $this->unpaidFees -= $fees;
         $this->unpaidFees = max(0, $this->unpaidFees);        
     }
 
-    public function addFees(float $fees) {
+    public function addFees(float $fees) : void {
         $this->unpaidFees += $fees;
     }
+
+    public function returnBook(DateTime $dueDate) : void {
+        $returnDate = new DateTime();
+        if ($returnDate <= $dueDate) return ;
+        $diff = $returnDate->diff($dueDate)->days;
+        $this->unpaidFees += ($diff * $this->lateFee);
+    } 
 
     abstract public function renewMembership();
 }
