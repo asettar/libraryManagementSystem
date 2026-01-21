@@ -49,7 +49,7 @@ class Book
     }
 
     public function isRenewd() : bool {
-        return $this->isRenewd();
+        return $this->isRenewed;
     }
 
     public function isAvailable(): bool {

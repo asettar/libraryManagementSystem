@@ -6,6 +6,7 @@ use src\factories\BorrowRecordFactory;
 use src\models\{Book, BorrowRecord, Member, Branch};
 use src\repositories\{MemberRepository, BorrowRepository, BookRepository, BranchRepository};
 use DateTime;
+use Exception;
 
 class BorrowService {
     private MemberRepository    $memberRepo;
@@ -66,21 +67,34 @@ class BorrowService {
         $this->memberRepo->update($member);
         
         // updateBook
-        if ($book->getStatus() !== 'reserved')
+        if (!$book->isReserved())
             $book->setStatus('available');
         $book->unrenew();
         $this->bookRepo->update($book);
     }
         
-    // public function renewBook(int $memberId, string $bookIsbn) {
-        // $book = $this->bookRepo->findByISBN($bookIsbn);
-        // validate member, book
-        //             book is not renewed yet 
-        //             status is checkedout(no reserve yet)
-        //             no overdue books (from borrowRepository)   
-        //     delete previous borrowRecord
-        //     createNewBorrowRecord()
-    // } 
+    public function renewBook(int $memberId, string $bookIsbn) {
+        $book = $this->bookRepo->findByISBN($bookIsbn);
+        $member = $this->memberRepo->findById($memberId);
+        $borrowRecord = $this->borrowRepo->find($bookIsbn, $memberId);
+        
+        if ($book->isRenewd()) 
+            throw new Exception('Book already renewd.');
+        if ($book->isReserved())
+            throw new Exception('Book already reserved.');
+        
+        if (!$member->canBorrow() || $this->borrowRepo->memberHasOverdueBooks($memberId))
+            throw new \Exception("Member not eligible for renew.");
+
+        $this->borrowRepo->delete($bookIsbn, $memberId);
+        $borrowRecord->setBorrowDate(new DateTime());
+        $borrowRecord->setDueDate((new DateTime())->modify("+{$member->getLoanPeriod()} days")); 
+        $this->borrowRepo->insert($borrowRecord);
+
+        // // update book
+        $book->renew();
+        $this->bookRepo->update($book);
+    }
 }
 
 ?>
