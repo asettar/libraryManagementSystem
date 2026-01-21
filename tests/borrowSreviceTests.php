@@ -6,6 +6,7 @@ use src\repositories\{BookRepository, MemberRepository, BorrowRepository, Branch
 use src\repositories\mySqlConnection;
 use src\services\{BorrowService};
 use PHPUnit\Framework\TestCase;
+use SebastianBergmann\CodeCoverage\Report\PHP;
 use src\factories\BorrowRecordFactory;
 use src\models\BorrowRecord;
 
@@ -18,7 +19,7 @@ class borrowSreviceTests extends TestCase {
     private $borrowService;
 
     public function setUp() : void  {
-        $this->db = new mySqlConnection();
+        $this->db = mySqlConnection::getInstance();
         $this->bookRepo = new BookRepository($this->db);
         $this->memberRepo = new MemberRepository($this->db);
         $this->branchRepo = new BranchRepository($this->db);
@@ -31,6 +32,7 @@ class borrowSreviceTests extends TestCase {
         $this->db->rollBack();
     }
     
+    // borrow book tests
     public function testBookNotFoundException() {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage("Book with isbn: 234234 not found.");
@@ -79,7 +81,7 @@ class borrowSreviceTests extends TestCase {
         // BorrowRecord
     }
 
-    // return book tests
+    // ======return book tests
     public function testrecordDeletionOnBookReturn() {
         $this->borrowRepo->find('9780201633610', 2);  // no exception throw 
         $this->borrowService->returnBook(2, '9780201633610'); // no exception
@@ -109,5 +111,26 @@ class borrowSreviceTests extends TestCase {
         $this->assertEquals($member->getCurrentBorrowedCount(), $borrows -1, "borrows count failed");
     }
 
+    // == renew book  
+
+    public function testMemberNotEligibleOnRenewBook() {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Member not eligible for renew.');   
+        $this->borrowService->renewBook(2, '9780201633610');
+    }
+
+    public function testBookReservedOnRenewBook() {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Book already reserved.');   
+        $this->borrowService->renewBook(3, '9780131103627');
+    }
+    
+    public function testSuccesfullRenewBook() {
+        $this->borrowService->renewBook(3, '9780262033848'); // no exception
+        $book = $this->bookRepo->findByISBN('9780262033848'); 
+
+        $this->assertEquals($book->isRenewd(), true, "book is not renewed");
+    }
 }
+
 ?>
