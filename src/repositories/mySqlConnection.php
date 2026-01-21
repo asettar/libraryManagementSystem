@@ -1,12 +1,15 @@
 <?php 
 
 namespace src\repositories;
+
+use Dom\Mysql;
 use src\interfaces\ConnectionInterface;
 use PDO;
 use PDOStatement;
 
 class MySqlConnection implements ConnectionInterface {
-    private PDO $connection;
+    private static ?MySqlConnection  $instance = null;
+    private ?PDO $connection;
 
     private string $host = "localhost";
     private string $dbname = "librarySystem";
@@ -22,6 +25,11 @@ class MySqlConnection implements ConnectionInterface {
         } catch (\PDOException $e) {
             die("Connection failed: " . $e->getMessage());
         }
+    }
+
+    public static function getInstance() : MySqlConnection {
+        if (!self::$instance) self::$instance = new MySqlConnection();
+        return self::$instance;
     }
 
     private function executeStatement(string $sql, array $data) : ?PDOStatement {
