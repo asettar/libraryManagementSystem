@@ -40,7 +40,7 @@ class ManagementServiceTests extends TestCase {
         $this->assertEquals($member->getPhoneNumber(), '0612345678');
     }
 
-    public function testPayFees() {
+    public function testPayMemberFees() {
         $this->managementSerivce->payMemberFees(2, 10);
         $member = $this->memberRepo->findById(2);
 

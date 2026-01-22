@@ -1,3 +1,5 @@
+create database librarysystem;
+use librarysystem;
 CREATE TABLE branches (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -42,15 +44,13 @@ CREATE TABLE members (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
-    phone_number VARCHAR(50) NOT NULL,
+    phone_number VARCHAR(50) NOT NULL UNIQUE,
     membership_end_date DATETIME DEFAULT NULL,
     current_borrowed_count INT NOT NULL DEFAULT 0,
     role ENUM('faculty', 'student') NOT NULL,
     unpaid_fees FLOAT NOT NULL DEFAULT 0
 );
 
-
---borrow records:
 
 CREATE TABLE borrow_records (
     book_isbn VARCHAR(20) NOT NULL,

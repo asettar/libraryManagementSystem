@@ -38,7 +38,6 @@ class ManagementService {
     public function registerNewMember() : void {
 
     }
-
 }
 
 // libraryService {
